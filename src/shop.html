@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,46 @@
 
   <!-- Hier verlinkst du die externe CSS-Datei -->
   <link rel="stylesheet" href="shop.css">
-  
+
   <!-- MDB und Font Awesome falls verwendet -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
 </head>
 <script>
-  
+  // Beim Laden der Seite
+  document.addEventListener("DOMContentLoaded", function () {
+    const quantityInputs = document.querySelectorAll('input[name="quantity"]');
+    const prices = document.querySelectorAll('.text-md-center strong');
+    const removeButtons = document.querySelectorAll('button[title="Remove item"]');
+    const totalField = document.querySelector('span strong');
+
+    function updateTotal() {
+      let total = 0;
+      quantityInputs.forEach((input, i) => {
+        const quantity = parseInt(input.value);
+        const priceText = prices[i].textContent.replace('$', '');
+        const price = parseFloat(priceText);
+        total += quantity * price;
+      });
+      totalField.textContent = `$${total.toFixed(2)}`;
+    }
+
+    quantityInputs.forEach(input => {
+      input.addEventListener('change', updateTotal);
+    });
+
+    removeButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const itemRow = this.closest('.row');
+        itemRow.remove();
+        updateTotal();
+      });
+    });
+
+    updateTotal(); // Initial
+  });
 </script>
+
 
 <section class="h-100 gradient-custom">
   <div class="container py-5">
@@ -27,25 +60,13 @@
           <div class="card-body">
             <!-- Single item -->
             <div class="row">
-              <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                <!-- Image -->
-                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/12a.webp"
-                    class="w-100" alt="Blue Jeans Jacket" />
-                  <a href="#!">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                  </a>
-                </div>
-                <!-- Image -->
-              </div>
-
               <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                 <!-- Data -->
-                <p><strong>Blue denim shirt</strong></p>
-                <p>Color: blue</p>
-                <p>Size: M</p>
-                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
-                  title="Remove item">
+                <p><strong>Hier JS machen</strong></p>
+                <p>infos</p>
+                <p>infos</p>
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2"
+                  data-mdb-tooltip-init title="Remove item">
                   <i class="fas fa-trash"></i>
                 </button>
                 <!-- Data -->
@@ -102,8 +123,8 @@
                 <p>Color: red</p>
                 <p>Size: M</p>
 
-                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2" data-mdb-tooltip-init
-                  title="Remove item">
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2"
+                  data-mdb-tooltip-init title="Remove item">
                   <i class="fas fa-trash"></i>
                 </button>
                 <!-- Data -->
@@ -170,8 +191,7 @@
           </div>
           <div class="card-body">
             <ul class="list-group list-group-flush">
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                 Products
                 <span>$53.98</span>
               </li>
@@ -179,8 +199,7 @@
                 Shipping
                 <span>Gratis</span>
               </li>
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                 <div>
                   <strong>Total amount</strong>
                   <strong>
@@ -191,7 +210,7 @@
               </li>
             </ul>
 
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">
+            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">
               Go to checkout
             </button>
           </div>
