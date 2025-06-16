@@ -1,3 +1,4 @@
+<!-- Meine Quelle zu dieser Seite: https://mdbootstrap.com/docs/standard/extended/shopping-carts/#!-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,41 +14,129 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
 </head>
-<script>
-  // Beim Laden der Seite
-  document.addEventListener("DOMContentLoaded", function () {
-    const quantityInputs = document.querySelectorAll('input[name="quantity"]');
-    const prices = document.querySelectorAll('.text-md-center strong');
-    const removeButtons = document.querySelectorAll('button[title="Remove item"]');
-    const totalField = document.querySelector('span strong');
 
-    function updateTotal() {
-      let total = 0;
-      quantityInputs.forEach((input, i) => {
-        const quantity = parseInt(input.value);
-        const priceText = prices[i].textContent.replace('$', '');
-        const price = parseFloat(priceText);
-        total += quantity * price;
-      });
-      totalField.textContent = `$${total.toFixed(2)}`;
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const artikelListe = [
+      {
+        name: "Stromae ist cool",
+        preis: 90.00,
+        bild: src = "https://imgproxy.ra.co/_/quality:66/aHR0cHM6Ly9pbWFnZXMucmEuY28vYjQwMmU1NGE2ODE4YTgzMGIzMTM3N2I3YjVkMDA1NGQ2MjQ0NjExZC5qcGc=",
+        farbe: "Platzhalter",
+        größe: "Platzhalter"
+      },
+      {
+        name: "Latino Party",
+        preis: 75.00,
+        bild: src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCJ4ombWVeQNgPoDEOLjCsnlYk0tEX2LJE5w&s",
+        farbe: "Platzhalter",
+        größe: "Platzhalter"
+      },
+      {
+        name: "Apache 207",
+        preis: 80.00,
+        bild: src="https://arena-ticket.com/wp-content/uploads/2024/09/2025-11-26-Apache-207.png",
+        farbe: "Platzhalter",
+        größe: "Platzhalter"
+      },
+      {
+        name: "Centeal Cee",
+        preis: 90.00,
+        bild: src="https://imgproxy.berlinonline.net/3HiTNj9Io5PvurLZ452_bsdGEKH5mh50UUb1oMgq67A/resizing_type:fit/width:1000/height:500/gravity:ce/enlarge:0/q:70/cb:2025041206/aHR0cHM6Ly9wb3B1bGEtbWlkZGxld2FyZS5zMy5hbWF6b25hd3MuY29tL2JvLW1pZGRsZXdhcmUvYm8uYmRlX2NoYW5uZWwuZXZlbnQvaW1hZ2VzLzIwOS82NGQwMDc0Yi0xZmEwLTYzYTEtYjlkMS05NmQxZDZmY2RhMWUuanBn.png",
+        farbe: "",
+        größe: ""
+      },
+      {
+        name: "The Starboy The Weeknd",
+        preis: 100.00,
+        bild: src="https://www.theconcertposter.com/media/image/product/4288/md/the-weeknd-starboy-koeln-2017-konzertplakat.jpg",
+        farbe: "",
+        größe: ""
+      },
+      {
+        name: "Dua Lipa Optimism",
+        preis: 80.00,
+        bild: src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqayK9NAqpRrSMiGe3ks7U4NgueT9rYvuDeA&s",
+        farbe: "",
+        größe: ""
+      }
+    ];
+
+    function erzeugeUeberschriftDiv(title){
+      const div = document.createElement('div');
+      div.className = 'card-header py-3';
+
+      div.innerHTML = ` 
+      <h5 class="mb-0">Warenkorb - ${title}</h5>
+      `;
     }
 
-    quantityInputs.forEach(input => {
-      input.addEventListener('change', updateTotal);
-    });
+    function erzeugeArtikelDiv(artikel) {
+      const div = document.createElement('div');
+      div.className = 'row';
 
-    removeButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const itemRow = this.closest('.row');
-        itemRow.remove();
+      div.innerHTML = `
+      <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+          <img src="${artikel.bild}" class="w-100" alt="${artikel.name}" />
+          <a href="#!">
+            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+        <p><strong>${artikel.name}</strong></p>
+        <p>Color: ${artikel.farbe}</p>
+        <p>Size: ${artikel.größe}</p>
+        <button type="button" class="btn btn-primary btn-sm me-1 mb-2 entfernen-btn" title="Remove item">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+        <div class="d-flex mb-4" style="max-width: 300px">
+          <button class="btn btn-primary px-3 me-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <div class="form-outline">
+            <input min="0" name="quantity" value="1" type="number" class="form-control" />
+            <label class="form-label">Quantity</label>
+          </div>
+
+          <button class="btn btn-primary px-3 ms-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+
+        <p class="text-start text-md-center">
+          <strong>$${artikel.preis.toFixed(2)}</strong>
+        </p>
+      </div>
+
+      <hr class="my-4" />
+    `;
+
+      div.querySelector('.entfernen-btn').addEventListener('click', function () {
+        div.remove();
         updateTotal();
       });
+
+      return div;
+    }
+
+    const container = document.getElementById('warenkorb-container');
+    artikelListe.forEach((artikel) => {
+      const artikelDiv = erzeugeArtikelDiv(artikel);
+      container.appendChild(artikelDiv);
     });
 
-    updateTotal(); // Initial
+    function updateTotal() {
+      console.log("Gesamtsumme neu berechnen...");
+    }
   });
 </script>
-
 
 <section class="h-100 gradient-custom">
   <div class="container py-5">
@@ -55,115 +144,10 @@
       <div class="col-md-8">
         <div class="card mb-4">
           <div class="card-header py-3">
-            <h5 class="mb-0">Cart - 2 items</h5>
+            <h3>Warenkorb</h3>
           </div>
           <div class="card-body">
-            <!-- Single item -->
-            <div class="row">
-              <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                <!-- Data -->
-                <p><strong>Hier JS machen</strong></p>
-                <p>infos</p>
-                <p>infos</p>
-                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2"
-                  data-mdb-tooltip-init title="Remove item">
-                  <i class="fas fa-trash"></i>
-                </button>
-                <!-- Data -->
-              </div>
-
-              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                <!-- Quantity -->
-                <div class="d-flex mb-4" style="max-width: 300px">
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                    <i class="fas fa-minus"></i>
-                  </button>
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
-                    <label class="form-label" for="form1">Quantity</label>
-                  </div>
-
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 ms-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-                <!-- Quantity -->
-
-                <!-- Price -->
-                <p class="text-start text-md-center">
-                  <strong>$17.99</strong>
-                </p>
-                <!-- Price -->
-              </div>
-            </div>
-            <!-- Single item -->
-
-            <hr class="my-4" />
-
-            <!-- Single item -->
-            <div class="row">
-              <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                <!-- Image -->
-                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Vertical/13a.webp"
-                    class="w-100" />
-                  <a href="#!">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                  </a>
-                </div>
-                <!-- Image -->
-              </div>
-
-              <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                <!-- Data -->
-                <p><strong>Red hoodie</strong></p>
-                <p>Color: red</p>
-                <p>Size: M</p>
-
-                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-sm me-1 mb-2"
-                  data-mdb-tooltip-init title="Remove item">
-                  <i class="fas fa-trash"></i>
-                </button>
-                <!-- Data -->
-              </div>
-
-              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                <!-- Quantity -->
-                <div class="d-flex mb-4" style="max-width: 300px">
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 me-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                    <i class="fas fa-minus"></i>
-                  </button>
-
-                  <div data-mdb-input-init class="form-outline">
-                    <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
-                    <label class="form-label" for="form1">Quantity</label>
-                  </div>
-
-                  <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary px-3 ms-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-                <!-- Quantity -->
-
-                <!-- Price -->
-                <p class="text-start text-md-center">
-                  <strong>$17.99</strong>
-                </p>
-                <!-- Price -->
-              </div>
-            </div>
-            <!-- Single item -->
-          </div>
-        </div>
-        <div class="card mb-4">
-          <div class="card-body">
-            <p><strong>Expected shipping delivery</strong></p>
-            <p class="mb-0">12.10.2020 - 14.10.2020</p>
+            <div id="warenkorb-container"></div>
           </div>
         </div>
         <div class="card mb-4 mb-lg-0">
@@ -178,8 +162,7 @@
             <img class="me-2" width="45px"
               src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
               alt="Mastercard" />
-            <img class="me-2" width="45px"
-              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
+            <img class="me-2" width="45px" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
               alt="PayPal acceptance mark" />
           </div>
         </div>
