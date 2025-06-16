@@ -54,6 +54,12 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.ticket-logo {
+    max-width: 80%;
+    max-height: 300px;
+    object-fit: contain;
+}
+
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
