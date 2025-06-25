@@ -10,5 +10,5 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
+  bild1: string = 'assets/images/ticket_seller_logo.png';
 }
