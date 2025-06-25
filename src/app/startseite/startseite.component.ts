@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-startseite',
   imports: [],
   templateUrl: './startseite.component.html',
+  standalone: true,
   styleUrl: './startseite.component.css'
 })
 export class StartseiteComponent {
