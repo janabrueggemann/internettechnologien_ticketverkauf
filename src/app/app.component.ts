@@ -11,4 +11,5 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'internettechnologien_ticketverkauf';
+  bild1: string = 'assets/images/ticket_seller_logo.png';
 }
