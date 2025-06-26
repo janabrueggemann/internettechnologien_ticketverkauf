@@ -22,9 +22,9 @@ const angularApp = new AngularNodeAppEngine();
     console.log("Anfrage angekommen");
     var con = createConnection({
         host: "192.168.110.94",
-      database: "Ticketverkaufdb",
-      user: "yourusername",
-      password: "yourpassword",
+      database: "25_IT_Gruppe6",
+      user: "25_IT_Grp6",
+      password: "ed)Bg36w-4MU)HFGtg1-",
       ssl:{
             rejectUnauthorized: false
       }
@@ -102,7 +102,7 @@ app.use('/', (req, res, next) => {
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, () => {
-    console.log('Node Express server listening on http://localhost:${port}');
+    console.log(`Node Express server listening on http://localhost:4000`);
   });
 }
 

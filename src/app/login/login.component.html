@@ -44,18 +44,16 @@
                     <input type="password" class="form-control form-control-user" id="examplePhone"
                       placeholder="Passwort">
                   </div>
-                  <a routerLink="/login" routerLinkActive="active" class="btn btn-primary btn-user btn-block">
-                    Login
-                  </a>
-                  <a routerLink="/" routerLinkActive="active" class="btn btn-primary btn-user btn-block">
-                    Zurück zur Homepage
-                  </a>
+                  <div class="btn-group-custom">
+                    <a routerLink="/login" class="btn btn-primary btn-user">
+                      Login
+                    </a>
+                    <a routerLink="/" class="btn btn-secondary btn-user">
+                      Zurück zur Homepage
+                    </a>
+                  </div>
                   <hr>
                 </form>
-                <hr>
-                <div class="text-center">
-                  <a class="small" href="forgot-password.html">Forgot Password?</a>
-                </div>
                 <div class="text-center">
                   <a class="small" routerLink="/register" routerLinkActive="active">Create an Account!</a>
                 </div>
